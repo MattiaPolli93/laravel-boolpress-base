@@ -10,9 +10,11 @@
 <body>
 	<div class="container-fluid mt-2">
 		<h1 class="text-center">@yield('pageTitle')</h1>
-		<div class="mt-5">
+		<div class="mt-4">
 			@yield('content')
 		</div>
 	</div>
+
+    <script src="{{asset('js/app.js')}}"></script>
 </body>
 </html>

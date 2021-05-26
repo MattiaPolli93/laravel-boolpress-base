@@ -39,8 +39,19 @@
 		<input class="form-check-input" type="checkbox" id="published" name="published">
 		<label class="form-check-label" for="published">Published</label>
 	</div>
+    <div class="mt-3">
+		<h3>Tags</h3>
+		@foreach ($tags as $tag)
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" value="{{$tag->id}}" id="{{$tag->name}}" name="tags[]">
+				<label class="form-check-label" for="{{$tag->name}}">
+					{{$tag->name}}
+				</label>
+			</div>
+		@endforeach
+	</div>
 	<div class="mt-3">
-		<button type="submit" class="btn btn-primary">Create</button>
+		<button type="submit" class="btn btn-primary mb-2">Create</button>
 	</div>
 </form>
 
