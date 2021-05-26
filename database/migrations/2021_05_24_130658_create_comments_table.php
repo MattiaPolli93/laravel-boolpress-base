@@ -18,7 +18,6 @@ class CreateCommentsTable extends Migration
             $table->foreignId("post_id")->constrained();
             $table->string("name", 100)->nullable();
             $table->text("content");
-            $table->date("date");
             $table->timestamps();
         });
     }

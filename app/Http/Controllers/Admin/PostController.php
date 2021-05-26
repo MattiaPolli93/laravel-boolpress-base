@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Post;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -15,7 +17,8 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::all();
-        dd($posts);
+
+        return view("admin.posts.index", compact("posts"));
     }
 
     /**
@@ -25,7 +28,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view("admin.posts.create");
     }
 
     /**
@@ -36,7 +39,29 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            "title" => "required|string|max:255",
+            "date" => "required|date",
+            "content" => "required|string",
+            "image" => "nullable|url"
+        ]);
+
+        $data = $request->all();
+        
+        // Checking checkbox
+        if (!isset($data["published"])) {
+            $data["published"] = false;
+        } else {
+            $data["published"] = true;
+        }
+
+        // Setting slug
+        $data["slug"] = Str::slug($data["title"], "-");
+
+        Post::create($data);
+
+        // Redirect
+        return redirect()->route("admin.posts.index");
     }
 
     /**
@@ -47,7 +72,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        dd($post);
+        return view("admin.posts.show", compact("post"));
     }
 
     /**
@@ -79,8 +104,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        $post->delete();
+
+        return redirect()->route("admin.posts.index");
     }
 }

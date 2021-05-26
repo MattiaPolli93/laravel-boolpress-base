@@ -32,7 +32,6 @@ class CommentsTableSeeder extends Seeder
                 }
 
                 $newComment->content = $faker->text();
-                $newComment->date = $faker->date();
                 $newComment->save();
             }
         }

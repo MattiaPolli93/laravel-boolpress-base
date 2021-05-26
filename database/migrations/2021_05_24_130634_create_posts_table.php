@@ -18,7 +18,6 @@ class CreatePostsTable extends Migration
             $table->string("title");
             $table->date("date");
             $table->string("image")->nullable();
-            $table->string("tagline")->nullable();
             $table->text("content");
             $table->boolean("published")->default(0);
             $table->string("slug")->unique();
