@@ -16,6 +16,7 @@
 			<th scope="col">Title</th>
 			<th scope="col">Date</th>
 			<th scope="col">Published</th>
+			<th scope="col">N° Comments</th>
 			<th scope="col">Actions</th>
 		</tr>
 	</thead>
@@ -26,6 +27,7 @@
 			<td>{{$post->title}}</td>
 			<td>{{$post->date}}</td>
 			<td>{!! $post->published ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>'!!}</td>
+            <td>{{count($post->comments)}}</td>
 			<td>
 				<a href="{{route('admin.posts.show', ['post' => $post->id])}}"><button type="button" class="btn btn-primary"><i class="fas fa-search"></i></button></a>
 				<a href="{{route('admin.posts.edit', ['post' => $post->id])}}"><button type="button" class="btn btn-success"><i class="fas fa-pencil-alt"></i></button></a>

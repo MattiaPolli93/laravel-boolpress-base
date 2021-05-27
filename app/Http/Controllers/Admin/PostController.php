@@ -52,7 +52,7 @@ class PostController extends Controller
         $validation["title"] = "required|string|max:255|unique:posts";
 
         // Validating
-        $request->validate($this->validation);
+        $request->validate($validation);
 
         $data = $request->all();
 
@@ -66,7 +66,9 @@ class PostController extends Controller
         $newPost = Post::create($data);
 
         // Adding tags
-        $newPost->tags()->attach($data["tags"]);
+        if (isset($data["tags"])) {
+            $newPost->tags()->attach($data["tags"]);
+        }
 
         // Redirecting
         return redirect()->route("admin.posts.index");
@@ -123,6 +125,10 @@ class PostController extends Controller
         $post->update($data);
 
         // Updating tags
+        if (!isset($data["tags"])) {
+            $data["tags"] = [];
+        }
+
         $post->tags()->sync($data["tags"]);
 
         // Redirecting
@@ -137,8 +143,6 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        $post->tags()->detach();
-
         $post->delete();
 
         return redirect()->route("admin.posts.index")->with("message", "The post was successfully deleted! ");

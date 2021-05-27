@@ -18,7 +18,7 @@ class TagsTableSeeder extends Seeder
             "css",
             "php",
             "js",
-            "vuejs",
+            "vue.js",
             "laravel"
         ];
 

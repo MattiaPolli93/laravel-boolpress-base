@@ -7,24 +7,20 @@
 @section('content')
 <div class="row">
   <div class="col-md-8 blog-main">
-
 	@foreach ($posts as $post)
 	<div class="blog-post">
-		<h2 class="blog-post-title">{{$post->title}}</h2>
+        <a href="{{route('guest.posts.show', ['slug' => $post->slug])}}"><h2 class="blog-post-title">{{$post->title}}</h2></a>
 		<p class="blog-post-meta">{{$post->date}}</p>
-		<p>
-			{{$post->content}}
-		</p>
+		<p>{{$post->content}}</p>
 		<div>
-			<a href="{{route('guest.posts.show', ['slug' => $post->slug])}}">Read More/a>
+			<a href="{{route('guest.posts.show', ['slug' => $post->slug])}}">Read More</a>
 		</div>
 	</div>
 	@endforeach
-
-
   </div>
+
   <aside class="col-md-4 blog-sidebar">
-	<div class="p-3 mb-3 bg-light rounded">
+    <div class="p-3 mb-3 bg-light rounded">
 	  <h4 class="font-italic">About</h4>
 	  <p class="mb-0">Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
 	</div>
@@ -39,5 +35,4 @@
 	</div>
   </aside>
 </div>
-
 @endsection
