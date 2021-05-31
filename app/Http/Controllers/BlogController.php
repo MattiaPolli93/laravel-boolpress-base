@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\Comment;
 use App\Tag;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\CommentMail;
 class BlogController extends Controller
 {
     public function index()
@@ -61,6 +62,9 @@ class BlogController extends Controller
         $newComment->post_id = $post->id;
 
         $newComment->save();
+        
+        // Sending notification email
+        Mail::to("noreply@hello.com")->send(new CommentMail($post));
 
         return back();
     }
